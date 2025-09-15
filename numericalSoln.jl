@@ -2,7 +2,7 @@ using Plots
 
 
 #sod shock tube numerical solution using MacCormack (2 step Lax-Wendroff Scheme) scheme
-function shockTube(; n=201, tMax=0.285, CFL=0.95)
+function shockTube(; n=201, tMax=0.04, CFL=0.95)
     #set up computational domain
     xmin = -.5
     xmax = .5
@@ -111,8 +111,9 @@ function shockTube(; n=201, tMax=0.285, CFL=0.95)
         cNum = sqrt.(gamma.*pNum./rNum)
 
         t += dt
-        print(t)
-    end
+
+        println(t)
+        end
 
     return x, rNum, uNum, eNum, pNum
 end
@@ -123,3 +124,6 @@ x, r, u, e, p = shockTube()
 #print(x)
 #plot properties vs. position
 
+scatter(x, r, label="Density", ms=2, ma=0.5)
+scatter!(x, u, label="Velocity", ms=2, ma=0.5)
+scatter!(x, p, label="Pressure", ms=2, ma=0.5)
